@@ -34,7 +34,7 @@ pub struct SetPlayParams {
 
 /// This enumerates the divisions of the Humanoid Soccer League. Note that this doesn't say
 /// anything about the field size.
-#[derive(Clone, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum Division {
     Small,
@@ -209,8 +209,8 @@ pub enum SetPlay {
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum Color {
-    Red,
     Blue,
+    Red,
     Yellow,
     Black,
     White,

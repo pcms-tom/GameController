@@ -95,7 +95,7 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
                             })
                             .count() as u32;
                         statistics[side].active_players += dt * active_players;
-                        statistics[side].ready_set_playing += dt;
+                        statistics[side].ready_set_playing += dt * params.competition.players_per_team.into();
                         if last.state == State::Playing {
                             statistics[side].playing += dt;
                         }
@@ -154,9 +154,9 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
     }
     for side in [Side::Home, Side::Away] {
         println!(
-            "{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
+            "{},{:?},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
             params.game.teams[side].number,
-            params.competition.players_per_team,
+            params.competition.division,
             statistics[side].goals,
             statistics[side].timeouts,
             statistics[side].penalties[PenaltyCall::IllegalPosition],
@@ -195,7 +195,7 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
 /// [evaluate] would write.
 pub fn header() {
     println!(
-        "team,players per team,goals,timeouts,illegal position,motion in set,local game stuck,\
+        "team,division,goals,timeouts,illegal position,motion in set,local game stuck,\
         incapable robot,request for pick-up,ball holding,leaving the field,\
         playing with arms/hands,pushing,warn,caution,send off,direct free kick against,\
         indirect free kick against,penalty kick against,throw-in against,goal kick against,\
