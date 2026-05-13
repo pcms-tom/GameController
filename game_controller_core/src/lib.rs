@@ -190,7 +190,7 @@ impl GameController {
 
     /// This function applies an action, given that it is legal. Some special cases will be
     /// filtered here. The action as well as the resulting game state is logged.
-    pub fn apply(&mut self, action: VAction, source: ActionSource) {
+    pub fn apply(&mut self, action: VAction, source: ActionSource) -> bool {
         let mut context = ActionContext::new(
             &mut self.game,
             &self.params,
@@ -198,7 +198,7 @@ impl GameController {
             Some(&mut self.history),
         );
         if !action.is_legal(&context) {
-            return;
+            return false;
         }
 
         if source == ActionSource::User {
@@ -213,6 +213,7 @@ impl GameController {
         }
         self.log_now(LogEntry::Action(LoggedAction { source, action }));
         self.log_now(LogEntry::GameState(Box::new(self.game.clone())));
+        true
     }
 
     /// This function adds an entry to the log file at the current point in time.

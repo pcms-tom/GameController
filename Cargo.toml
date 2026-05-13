@@ -1,6 +1,7 @@
 [workspace]
 default-members = ["game_controller_app"]
 members = [
+  "game_controller_api",
   "game_controller_app",
   "game_controller_core",
   "game_controller_msgs",

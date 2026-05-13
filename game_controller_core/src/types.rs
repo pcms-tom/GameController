@@ -36,6 +36,7 @@ pub struct SetPlayParams {
 /// anything about the field size.
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum Division {
     Small,
     Middle,
@@ -89,6 +90,7 @@ pub struct CompetitionParams {
 /// This struct contains constant parameters for one team.
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub struct TeamParams {
     /// The number which globally identifies the team within the league.
     pub number: u8,
@@ -102,6 +104,7 @@ pub struct TeamParams {
 /// testing.
 #[derive(Clone, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub struct TestParams {
     /// Game state transitions are never delayed.
     pub no_delay: bool,
@@ -113,6 +116,7 @@ pub struct TestParams {
 /// This struct contains constant parameters that are specific to a game.
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub struct GameParams {
     /// The team parameters for both teams.
     pub teams: EnumMap<Side, TeamParams>,
@@ -152,6 +156,7 @@ pub struct Params {
 /// This enumerates the phases in which a game can be.
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum Phase {
     /// The first half of the regular playing time.
     FirstHalf,
@@ -168,6 +173,7 @@ pub enum Phase {
 /// This enumerates the states in which a game can be.
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum State {
     /// This state is active before each half and before a penalty shoot-out.
     Initial,
@@ -186,6 +192,7 @@ pub enum State {
 /// This enumerates the set plays which can be active.
 #[derive(Clone, Copy, Debug, Deserialize, Enum, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum SetPlay {
     /// No set play is active.
     NoSetPlay,
@@ -208,6 +215,7 @@ pub enum SetPlay {
 /// This enumerates the jersey colors. Values may be added to match actually submitted jersey designs.
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum Color {
     Blue,
     Red,
@@ -224,6 +232,7 @@ pub enum Color {
 /// This enumerates the reasons why a player can be penalized.
 #[derive(Clone, Copy, Debug, Deserialize, Enum, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum Penalty {
     /// The player is not penalized.
     NoPenalty,
@@ -259,6 +268,7 @@ pub enum Penalty {
 /// redundant.
 #[derive(Clone, Copy, Debug, Deserialize, Enum, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum PenaltyCall {
     IllegalPosition,
     MotionInSet,
@@ -280,6 +290,7 @@ pub enum PenaltyCall {
 /// interpreting log files. The actual sides on the field of play are represented by [SideMapping].
 #[derive(Clone, Copy, Debug, Deserialize, Enum, Eq, Hash, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum Side {
     /// The team listed first on the schedule.
     Home,
@@ -301,6 +312,7 @@ impl Neg for Side {
 /// This enumerates the possible assignments of teams to sides of the field of play.
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum SideMapping {
     /// The home team defends the left goal (and the away team defends the right goal).
     HomeDefendsLeftGoal,
@@ -462,6 +474,7 @@ pub struct Player {
 /// This enumerates the possible sources that can trigger actions.
 #[derive(Deserialize, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
+#[repr(C)]
 pub enum ActionSource {
     /// The action was triggered by a network packet. It should be replayed and even kept if
     /// actions are undone.
