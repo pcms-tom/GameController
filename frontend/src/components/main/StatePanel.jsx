@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import ActionButton from "./ActionButton";
 import * as actions from "../../actions.js";
+import { applyAction } from "../../api.js";
 
 const StatePanel = ({ game, params, legalGameActions }) => {
   const inHalfTimeBreak =
@@ -7,6 +9,18 @@ const StatePanel = ({ game, params, legalGameActions }) => {
       game.state === "finished") ||
     ((game.phase === "secondHalf" || game.phase === "secondExtraHalf") && game.state === "initial");
   const hasExtraTime = params.competition.extraHalfDuration != null;
+
+  useEffect(() => {
+    const onKeydown = (e) => {
+      if (e.key === " ") {
+        applyAction({ type: "stopPlay", args: { resume: false } });
+      }
+    };
+    document.addEventListener("keydown", onKeydown);
+    return () => {
+      document.removeEventListener("keydown", onKeydown);
+    };
+  });
 
   let stopResumeButton = (
     <div className="col-span-5">
