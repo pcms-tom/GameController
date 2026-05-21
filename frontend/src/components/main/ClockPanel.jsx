@@ -70,8 +70,8 @@ const ClockPanel = ({ game, legalGameActions }) => {
           }`}
         >
           <ActionButton
-            action={{ type: "addExtraTime", args: null }}
-            legal={legalGameActions[actions.ADD_EXTRA_TIME]}
+            action={{ type: "addAdditionalTime", args: null }}
+            legal={legalGameActions[actions.ADD_ADDITIONAL_TIME]}
             label="+"
           />
         </div>

@@ -4,7 +4,7 @@ use bytes::Bytes;
 
 use game_controller_core::action::VAction;
 use game_controller_core::actions::{
-    AddExtraTime, FinishHalf, FinishPenaltyShot, FinishSetPlay, FreePenaltyShot, FreeSetPlay,
+    AddAdditionalTime, FinishHalf, FinishPenaltyShot, FinishSetPlay, FreePenaltyShot, FreeSetPlay,
     GlobalGameStuck, Goal, Penalize, SelectPenaltyShotPlayer, StartExtraTime, StartPenaltyShootout,
     StartSetPlay, StopPlay, Substitute, SwitchHalf, TeamMessage, Timeout, Undo, Unpenalize,
     WaitForPenaltyShot, WaitForSetPlay,
@@ -78,8 +78,8 @@ pub extern "C" fn gc_destroy(game_controller: *mut GameController) {
 }
 
 #[no_mangle]
-pub extern "C" fn gc_action_add_extra_time() -> *mut VAction {
-    Box::into_raw(Box::new(VAction::AddExtraTime(AddExtraTime)))
+pub extern "C" fn gc_action_add_additional_time() -> *mut VAction {
+    Box::into_raw(Box::new(VAction::AddAdditionalTime(AddAdditionalTime)))
 }
 
 #[no_mangle]

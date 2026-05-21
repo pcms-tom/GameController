@@ -73,8 +73,10 @@ pub struct CompetitionParams {
     pub referee_timeout_duration: Duration,
     /// The number of team messages a team can send during a game.
     pub messages_per_team: u16,
-    /// The number of team messages by which a team's budget is increased per minute of extra time.
-    pub messages_per_team_per_extra_minute: u16,
+    /// The number of team messages by which a team's budget is increased per minute of additional time.
+    pub messages_per_team_per_additional_minute: u16,
+    /// The number of team messages by which a team's budget is increased for the extra time.
+    pub messages_per_team_per_extra_time: Option<u16>,
     /// The score difference at which a game is finished automatically.
     pub mercy_rule_score_difference: u8,
     /// The number of regular penalty shots each team takes in a penalty shoot-out.

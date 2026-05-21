@@ -20,11 +20,17 @@ impl Action for StartExtraTime {
                     player.penalty = Penalty::NoPenalty;
                     player.penalty_timer = Timer::Stopped;
                 });
-
-            if !team.illegal_communication {
-                team.message_budget += 6000; // TODO
-            }
         });
+
+        if let Some(extra_budget) = c.params.competition.messages_per_team_per_extra_time {
+            c.game
+                .teams
+                .values_mut()
+                .filter(|team| !team.illegal_communication)
+                .for_each(|team| {
+                    team.message_budget += extra_budget;
+                });
+        }
 
         c.game.sides = c.params.game.side_mapping;
         c.game.phase = Phase::FirstExtraHalf;

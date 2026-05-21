@@ -3,8 +3,8 @@ import * as actions from "../../actions.js";
 
 const getActionName = (action) => {
   switch (action.type) {
-    case "addExtraTime":
-      return "Add Extra Time";
+    case "addAdditionalTime":
+      return "Add Additional Time";
     case "finishHalf":
     case "finishPenaltyShot":
       return "Finish";

@@ -139,7 +139,8 @@ refereeTimeoutDuration:
   secs: 600
   nanos: 0
 messagesPerTeam: 12000
-messagesPerTeamPerExtraMinute: 600
+messagesPerTeamPerAdditionalMinute: 600
+messagesPerTeamPerExtraTime: 6000
 mercyRuleScoreDifference: 10
 penaltyShots: 3
 suddenDeathPenaltyShots: 3

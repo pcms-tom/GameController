@@ -1,6 +1,6 @@
 //! This module contains all actions.
 
-mod add_extra_time;
+mod add_additional_time;
 mod finish_half;
 mod finish_penalty_shot;
 mod finish_set_play;
@@ -23,7 +23,7 @@ mod unpenalize;
 mod wait_for_penalty_shot;
 mod wait_for_set_play;
 
-pub use add_extra_time::AddExtraTime;
+pub use add_additional_time::AddAdditionalTime;
 pub use finish_half::FinishHalf;
 pub use finish_penalty_shot::FinishPenaltyShot;
 pub use finish_set_play::FinishSetPlay;
