@@ -35,7 +35,7 @@ impl Action for FreeSetPlay {
                     .duration
                     .try_into()
                     .unwrap(),
-                run_condition: RunCondition::Always,
+                run_condition: RunCondition::Playing,
                 behavior_at_zero: BehaviorAtZero::Expire(vec![VAction::FinishSetPlay(
                     FinishSetPlay,
                 )]),

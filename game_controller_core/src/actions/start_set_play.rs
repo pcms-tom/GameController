@@ -28,7 +28,7 @@ impl Action for StartSetPlay {
                     .ready_duration
                     .try_into()
                     .unwrap(),
-                run_condition: RunCondition::Always,
+                run_condition: RunCondition::ReadyOrPlaying,
                 // Automatically transition to the Set state when the timer expires.
                 behavior_at_zero: BehaviorAtZero::Expire(vec![VAction::WaitForSetPlay(
                     WaitForSetPlay,
@@ -50,7 +50,7 @@ impl Action for StartSetPlay {
                     .duration
                     .try_into()
                     .unwrap(),
-                run_condition: RunCondition::Always,
+                run_condition: RunCondition::Playing,
                 // Automatically deactivate the set play when the timer expires.
                 behavior_at_zero: BehaviorAtZero::Expire(vec![VAction::FinishSetPlay(
                     FinishSetPlay,
