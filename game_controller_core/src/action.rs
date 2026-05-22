@@ -108,6 +108,10 @@ impl ActionContext<'_> {
     /// This function adds the current game state to the (undo) history, together with the action
     /// that will be applied now.
     pub fn add_to_history(&mut self, action: VAction) {
+        // StopPlay actions should not be added to the history, as their effects persist undo.
+        if matches!(action, VAction::StopPlay(_)) {
+            return;
+        }
         if let Some(history) = self.history.as_mut() {
             history.push((self.game.clone(), action));
         }
@@ -130,7 +134,10 @@ impl ActionContext<'_> {
                 history.pop();
             }
             if let Some(entry) = history.pop() {
+                // The stopped state should persist undo.
+                let stopped = self.game.stopped;
                 *self.game = entry.0;
+                self.game.stopped = stopped;
             }
         }
     }
