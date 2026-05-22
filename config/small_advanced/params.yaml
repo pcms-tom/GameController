@@ -9,7 +9,7 @@ penalties:
     incremental: false
   illegalPositioning:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: true
   motionInSet:
@@ -19,37 +19,37 @@ penalties:
     incremental: false
   localGameStuck:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: false
   incapableRobot:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: false
   pickedUp:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: true
   ballHolding:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: true
   leavingTheField:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: true
   playingWithArmsHands:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: true
   pushing:
     duration:
-      secs: 30
+      secs: 45
       nanos: 0
     incremental: true
   sentOff:
@@ -63,7 +63,7 @@ penalties:
       nanos: 0
     incremental: false
 penaltyDurationIncrement:
-  secs: 15
+  secs: 10
   nanos: 0
 setPlays:
   noSetPlay:
