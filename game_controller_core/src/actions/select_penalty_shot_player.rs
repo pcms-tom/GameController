@@ -32,7 +32,6 @@ impl Action for SelectPenaltyShotPlayer {
                         penalty: Penalty::Substitute,
                         penalty_timer: Timer::Stopped,
                         penalty_increment: 0,
-                        warnings: player.warnings,
                         cautions: player.cautions,
                     },
                 )
@@ -42,7 +41,6 @@ impl Action for SelectPenaltyShotPlayer {
                 penalty: Penalty::NoPenalty,
                 penalty_timer: Timer::Stopped,
                 penalty_increment: 0,
-                warnings: 0, // TODO
                 cautions: 0, // TODO
             });
 

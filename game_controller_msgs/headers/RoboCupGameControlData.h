@@ -65,7 +65,7 @@ struct RobotInfo
 {
   uint8_t penalty;             // penalty state of the player (PENALTY_NONE, etc)
   uint8_t secsTillUnpenalised; // estimate of time till unpenalised
-  uint8_t warnings;            // number of warnings
+  uint8_t warnings;            // number of warnings (currently not used)
   uint8_t cautions;            // number of cautions (yellow cards)
 };
 

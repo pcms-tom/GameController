@@ -154,7 +154,7 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
     }
     for side in [Side::Home, Side::Away] {
         println!(
-            "{},{:?},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
+            "{},{:?},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
             params.game.teams[side].number,
             params.competition.division,
             statistics[side].goals,
@@ -168,7 +168,6 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
             statistics[side].penalties[PenaltyCall::LeavingTheField],
             statistics[side].penalties[PenaltyCall::PlayingWithArmsHands],
             statistics[side].penalties[PenaltyCall::Pushing],
-            statistics[side].penalties[PenaltyCall::Warn],
             statistics[side].penalties[PenaltyCall::Caution],
             statistics[side].penalties[PenaltyCall::SendOff],
             statistics[side].set_plays_against[SetPlay::DirectFreeKick],
@@ -197,7 +196,7 @@ pub fn header() {
     println!(
         "team,division,goals,timeouts,illegal position,motion in set,local game stuck,\
         incapable robot,request for pick-up,ball holding,leaving the field,\
-        playing with arms/hands,pushing,warn,caution,send off,direct free kick against,\
+        playing with arms/hands,pushing,caution,send off,direct free kick against,\
         indirect free kick against,penalty kick against,throw-in against,goal kick against,\
         corner kick against,direct free kick for,indirect free kick for,penalty kick for,\
         throw-in for,goal kick for,corner kick for,active players,ready set playing,playing"

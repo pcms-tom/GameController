@@ -256,6 +256,8 @@ pub enum Penalty {
     PlayingWithArmsHands,
     /// The player has committed a pushing offence.
     Pushing,
+    /// The player has committed a cautionable offence.
+    Cautioned,
     /// The player has been sent off. (Doesn't matter for what.)
     SentOff,
     /// The player is currently a substitute.
@@ -281,7 +283,6 @@ pub enum PenaltyCall {
     LeavingTheField,
     PlayingWithArmsHands,
     Pushing,
-    Warn,
     Caution,
     SendOff,
 }
@@ -467,8 +468,6 @@ pub struct Player {
     pub penalty_timer: Timer,
     /// The value of the team's penalty counter when the player was penalized.
     pub penalty_increment: u32,
-    /// The number of warnings of the player.
-    pub warnings: u8,
     /// The number of cautions (yellow cards) of the player.
     pub cautions: u8,
 }

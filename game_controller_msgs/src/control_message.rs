@@ -238,6 +238,7 @@ impl ControlMessage {
                             Penalty::LeavingTheField => PENALTY_LEAVING_THE_FIELD,
                             Penalty::PlayingWithArmsHands => PENALTY_PLAYING_WITH_ARMS_HANDS,
                             Penalty::Pushing => PENALTY_PUSHING,
+                            Penalty::Cautioned => PENALTY_SENT_OFF, // TODO
                             Penalty::SentOff => PENALTY_SENT_OFF,
                             Penalty::Substitute => PENALTY_SUBSTITUTE,
                         },
@@ -246,7 +247,7 @@ impl ControlMessage {
                             u8::MIN as i64,
                             u8::MAX as i64,
                         ) as u8,
-                        warnings: player.warnings,
+                        warnings: 0u8,
                         cautions: player.cautions,
                     }),
             }),

@@ -25,6 +25,7 @@ const penaltyDescriptions = {
   leavingTheField: "Leaving the Field",
   playingWithArmsHands: "Arms / Hands",
   pushing: "Pushing",
+  cautioned: "Cautioned",
   sentOff: "Sent Off",
   substitute: "Substitute",
 };

@@ -43,11 +43,6 @@ impl Action for Substitute {
             c.game.teams[self.side][self.player_in].penalty_increment =
                 c.game.teams[self.side][self.player_out].penalty_increment;
         }
-        // TODO
-        /*
-        swap(&mut c.game.teams[self.side][self.player_in].warnings, &mut c.game.teams[self.side][self.player_out].warnings);
-        swap(&mut c.game.teams[self.side][self.player_in].cautions, &mut c.game.teams[self.side][self.player_out].cautions);
-        */
         c.game.teams[self.side][self.player_out].penalty = Penalty::Substitute;
         c.game.teams[self.side][self.player_out].penalty_increment = 0;
         if c.game.teams[self.side].goalkeeper == Some(self.player_out) {

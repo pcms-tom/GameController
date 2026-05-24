@@ -59,7 +59,6 @@ impl GameController {
             timeout_rewind_timer: Timer::Stopped,
             switch_half_timer: Timer::Stopped,
             teams: EnumMap::from_fn(|_| Team {
-                // Most Passes Leaderboard: No goalkeeper.
                 goalkeeper: Some(PlayerNumber::new(1)),
                 score: 0,
                 penalty_counter: 0,
@@ -78,7 +77,6 @@ impl GameController {
                         },
                         penalty_increment: 0,
                         penalty_timer: Timer::Stopped,
-                        warnings: 0,
                         cautions: 0,
                     })
                     // We have to collect into a Vec first because this thing cannot be directly
