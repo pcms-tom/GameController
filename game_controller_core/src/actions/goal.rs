@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::action::{Action, ActionContext};
-use crate::actions::{FinishHalf, StartSetPlay};
+use crate::actions::{FinishHalf, FinishPenaltyShot, StartSetPlay};
 use crate::types::{Phase, SetPlay, Side, State};
 
 /// This struct defines an action for when a goal has been scored.
@@ -25,7 +25,11 @@ impl Action for Goal {
             c.game.teams[self.side].score += 1;
         }
         if mercy_rule {
-            c.game.phase = Phase::SecondHalf;
+            c.game.phase = match c.game.phase {
+                Phase::FirstHalf | Phase::SecondHalf => Phase::SecondHalf,
+                Phase::FirstExtraHalf | Phase::SecondExtraHalf => Phase::SecondExtraHalf,
+                Phase::PenaltyShootout => panic!("only possible outside of penalty shoot-out"),
+            };
             FinishHalf.execute(c);
         } else if c.game.phase != Phase::PenaltyShootout {
             // A kick-off for the other team.
@@ -37,7 +41,7 @@ impl Action for Goal {
         } else {
             c.game.teams[self.side].penalty_shot_mask |=
                 1u16 << (c.game.teams[self.side].penalty_shot - 1);
-            c.game.state = State::Finished;
+            FinishPenaltyShot.execute(c);
         }
     }
 
