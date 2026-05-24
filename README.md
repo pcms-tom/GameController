@@ -156,7 +156,7 @@ This should be done in case the robot handler wants to do something with the rob
 Once there are only 10 seconds remaining, the player's button starts flashing.
 Players are not unpenalized automatically.
 Instead they must be unpenalized by clicking their button once their penalty time is over.
-If a player has been penalized by mistake, and some actions have followed so that in cannot be simply [undone](#undo), penalties can be removed early by pressing the *Shift* key while clicking the player.
+If a player has been penalized by mistake, and some actions have followed so that it cannot be simply [undone](#undo), penalties can be removed early by pressing the *Shift* key while clicking the player.
 This will, however, not remove any effects on the team's penalty counter and the penalty times of other players that have been penalized later.
 
 Some penalties are special:

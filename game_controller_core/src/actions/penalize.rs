@@ -127,7 +127,7 @@ impl Action for Penalize {
                 PenaltyCall::PlayingWithArmsHands => {
                     c.game.state == State::Ready // Not possible in this state, but can happen in
                                                  // Playing shortly before a goal and the
-                                                 // GameController oprtator clicks the goal first.
+                                                 // GameController operator clicks the goal first.
                         || c.game.state == State::Playing
                 }
                 PenaltyCall::LeavingTheField => {
