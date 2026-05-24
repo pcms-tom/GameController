@@ -23,6 +23,7 @@ impl Action for Penalize {
         let mut penalty = match self.call {
             PenaltyCall::IllegalPosition => Penalty::IllegalPositioning,
             PenaltyCall::MotionInSet => Penalty::MotionInSet,
+            PenaltyCall::MotionInStop => Penalty::MotionInStop,
             PenaltyCall::LocalGameStuck => Penalty::LocalGameStuck,
             PenaltyCall::IncapableRobot => Penalty::IncapableRobot,
             PenaltyCall::RequestForPickUp => Penalty::PickedUp,
@@ -80,6 +81,7 @@ impl Action for Penalize {
                             || c.game.state == State::Playing)
                 }
                 PenaltyCall::MotionInSet => c.game.state == State::Set,
+                PenaltyCall::MotionInStop => c.game.stopped,
                 PenaltyCall::IncapableRobot => {
                     c.game.state == State::Ready
                         || c.game.state == State::Set

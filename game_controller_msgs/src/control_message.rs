@@ -9,14 +9,14 @@ use crate::bindings::{
     COMPETITION_TYPE_LARGE, COMPETITION_TYPE_MIDDLE, COMPETITION_TYPE_SMALL,
     GAMECONTROLLER_STRUCT_HEADER, GAMECONTROLLER_STRUCT_SIZE, GAMECONTROLLER_STRUCT_VERSION,
     GAME_PHASE_EXTRA_TIME, GAME_PHASE_NORMAL, GAME_PHASE_PENALTY_SHOOT_OUT, GAME_PHASE_TIMEOUT,
-    KICKING_TEAM_NONE, MAX_NUM_PLAYERS, PENALTY_BALL_HOLDING, PENALTY_ILLEGAL_POSITIONING,
-    PENALTY_INCAPABLE_ROBOT, PENALTY_LEAVING_THE_FIELD, PENALTY_LOCAL_GAME_STUCK,
-    PENALTY_MOTION_IN_SET, PENALTY_NONE, PENALTY_PICK_UP, PENALTY_PLAYING_WITH_ARMS_HANDS,
-    PENALTY_PUSHING, PENALTY_SENT_OFF, PENALTY_SUBSTITUTE, SET_PLAY_CORNER_KICK,
-    SET_PLAY_DIRECT_FREE_KICK, SET_PLAY_GOAL_KICK, SET_PLAY_INDIRECT_FREE_KICK, SET_PLAY_NONE,
-    SET_PLAY_PENALTY_KICK, SET_PLAY_THROW_IN, STATE_FINISHED, STATE_INITIAL, STATE_PLAYING,
-    STATE_READY, STATE_SET, TEAM_BLACK, TEAM_BLUE, TEAM_BROWN, TEAM_GRAY, TEAM_GREEN, TEAM_ORANGE,
-    TEAM_PURPLE, TEAM_RED, TEAM_WHITE, TEAM_YELLOW,
+    KICKING_TEAM_NONE, MAX_NUM_PLAYERS, PENALTY_BALL_HOLDING, PENALTY_CAUTIONED,
+    PENALTY_ILLEGAL_POSITIONING, PENALTY_INCAPABLE_ROBOT, PENALTY_LEAVING_THE_FIELD,
+    PENALTY_LOCAL_GAME_STUCK, PENALTY_MOTION_IN_SET, PENALTY_MOTION_IN_STOP, PENALTY_NONE,
+    PENALTY_PICK_UP, PENALTY_PLAYING_WITH_ARMS_HANDS, PENALTY_PUSHING, PENALTY_SENT_OFF,
+    PENALTY_SUBSTITUTE, SET_PLAY_CORNER_KICK, SET_PLAY_DIRECT_FREE_KICK, SET_PLAY_GOAL_KICK,
+    SET_PLAY_INDIRECT_FREE_KICK, SET_PLAY_NONE, SET_PLAY_PENALTY_KICK, SET_PLAY_THROW_IN,
+    STATE_FINISHED, STATE_INITIAL, STATE_PLAYING, STATE_READY, STATE_SET, TEAM_BLACK, TEAM_BLUE,
+    TEAM_BROWN, TEAM_GRAY, TEAM_GREEN, TEAM_ORANGE, TEAM_PURPLE, TEAM_RED, TEAM_WHITE, TEAM_YELLOW,
 };
 
 /// This struct corresponds to the `RobotInfo`.
@@ -26,8 +26,6 @@ pub struct ControlMessagePlayer {
     penalty: u8,
     /// This field corresponds to `RobotInfo::secsTillUnpenalised`.
     secs_till_unpenalized: u8,
-    /// This field corresponds to `RobotInfo::warnings`.
-    warnings: u8,
     /// This field corresponds to `RobotInfo::cautions`.
     cautions: u8,
 }
@@ -120,7 +118,6 @@ impl From<ControlMessage> for Bytes {
             for player in &team.players {
                 bytes.put_u8(player.penalty);
                 bytes.put_u8(player.secs_till_unpenalized);
-                bytes.put_u8(player.warnings);
                 bytes.put_u8(player.cautions);
             }
         }
@@ -231,6 +228,7 @@ impl ControlMessage {
                             Penalty::NoPenalty => PENALTY_NONE,
                             Penalty::IllegalPositioning => PENALTY_ILLEGAL_POSITIONING,
                             Penalty::MotionInSet => PENALTY_MOTION_IN_SET,
+                            Penalty::MotionInStop => PENALTY_MOTION_IN_STOP,
                             Penalty::LocalGameStuck => PENALTY_LOCAL_GAME_STUCK,
                             Penalty::IncapableRobot => PENALTY_INCAPABLE_ROBOT,
                             Penalty::PickedUp => PENALTY_PICK_UP,
@@ -238,7 +236,7 @@ impl ControlMessage {
                             Penalty::LeavingTheField => PENALTY_LEAVING_THE_FIELD,
                             Penalty::PlayingWithArmsHands => PENALTY_PLAYING_WITH_ARMS_HANDS,
                             Penalty::Pushing => PENALTY_PUSHING,
-                            Penalty::Cautioned => PENALTY_SENT_OFF, // TODO
+                            Penalty::Cautioned => PENALTY_CAUTIONED,
                             Penalty::SentOff => PENALTY_SENT_OFF,
                             Penalty::Substitute => PENALTY_SUBSTITUTE,
                         },
@@ -247,7 +245,6 @@ impl ControlMessage {
                             u8::MIN as i64,
                             u8::MAX as i64,
                         ) as u8,
-                        warnings: 0u8,
                         cautions: player.cautions,
                     }),
             }),

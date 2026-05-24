@@ -18,6 +18,7 @@ const penaltyDescriptions = {
   noPenalty: "No Penalty",
   illegalPositioning: "Illegal Positioning",
   motionInSet: "Motion in Set",
+  motionInStop: "Motion in Stop",
   localGameStuck: "Local Game Stuck",
   incapableRobot: "Incapable Robot",
   pickedUp: "Picked Up",

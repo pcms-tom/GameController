@@ -95,7 +95,8 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
                             })
                             .count() as u32;
                         statistics[side].active_players += dt * active_players;
-                        statistics[side].ready_set_playing += dt * params.competition.players_per_team.into();
+                        statistics[side].ready_set_playing +=
+                            dt * params.competition.players_per_team.into();
                         if last.state == State::Playing {
                             statistics[side].playing += dt;
                         }
@@ -154,13 +155,14 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
     }
     for side in [Side::Home, Side::Away] {
         println!(
-            "{},{:?},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
+            "{},{:?},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}",
             params.game.teams[side].number,
             params.competition.division,
             statistics[side].goals,
             statistics[side].timeouts,
             statistics[side].penalties[PenaltyCall::IllegalPosition],
             statistics[side].penalties[PenaltyCall::MotionInSet],
+            statistics[side].penalties[PenaltyCall::MotionInStop],
             statistics[side].penalties[PenaltyCall::LocalGameStuck],
             statistics[side].penalties[PenaltyCall::IncapableRobot],
             statistics[side].penalties[PenaltyCall::RequestForPickUp],
@@ -194,8 +196,8 @@ pub fn evaluate(entries: Vec<TimestampedLogEntry>) -> Result<()> {
 /// [evaluate] would write.
 pub fn header() {
     println!(
-        "team,division,goals,timeouts,illegal position,motion in set,local game stuck,\
-        incapable robot,request for pick-up,ball holding,leaving the field,\
+        "team,division,goals,timeouts,illegal position,motion in set,motion in stop,\
+        local game stuck,incapable robot,request for pick-up,ball holding,leaving the field,\
         playing with arms/hands,pushing,caution,send off,direct free kick against,\
         indirect free kick against,penalty kick against,throw-in against,goal kick against,\
         corner kick against,direct free kick for,indirect free kick for,penalty kick for,\

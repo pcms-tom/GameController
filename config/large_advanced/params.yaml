@@ -17,6 +17,11 @@ penalties:
       secs: 10
       nanos: 0
     incremental: false
+  motionInStop:
+    duration:
+      secs: 45
+      nanos: 0
+    incremental: true
   localGameStuck:
     duration:
       secs: 45

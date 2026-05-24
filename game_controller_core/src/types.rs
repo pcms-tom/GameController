@@ -242,6 +242,8 @@ pub enum Penalty {
     IllegalPositioning,
     /// The player has moved during the Set state.
     MotionInSet,
+    /// The player has moved while the game was stopped.
+    MotionInStop,
     /// The player has caused a local game stuck.
     LocalGameStuck,
     /// The player has fallen or become inactive for too long.
@@ -276,6 +278,7 @@ pub enum Penalty {
 pub enum PenaltyCall {
     IllegalPosition,
     MotionInSet,
+    MotionInStop,
     LocalGameStuck,
     IncapableRobot,
     RequestForPickUp,
