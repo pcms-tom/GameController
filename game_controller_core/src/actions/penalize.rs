@@ -68,7 +68,13 @@ impl Action for Penalize {
     }
 
     fn is_legal(&self, c: &ActionContext) -> bool {
-        c.game.teams[self.side][self.player].penalty == Penalty::NoPenalty
+        // Most penalties can only be given to unpenalized players, except for yellow / red cards,
+        // which can be given to any player that is not a substitute or already sent off.
+        (c.game.teams[self.side][self.player].penalty == Penalty::NoPenalty
+            || (!matches!(
+                c.game.teams[self.side][self.player].penalty,
+                Penalty::Substitute | Penalty::SentOff
+            ) && matches!(self.call, PenaltyCall::Caution | PenaltyCall::SendOff)))
             && (match self.call {
                 PenaltyCall::RequestForPickUp => true,
                 PenaltyCall::IllegalPosition => {
