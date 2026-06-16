@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use serde::{Deserialize, Serialize};
 
 use crate::action::{Action, ActionContext, VAction};
@@ -43,12 +45,21 @@ impl Action for Penalize {
             }
         }
 
-        c.game.teams[self.side][self.player].penalty_increment =
-            c.game.teams[self.side].penalty_counter;
+        c.game.teams[self.side][self.player].penalty_duration = match (c.game.state, penalty) {
+            (State::Initial | State::Timeout, Penalty::PickedUp) => Duration::ZERO,
+            (_, Penalty::MotionInSet) => c.params.competition.penalties[penalty].duration,
+            // The duration is composed of the base duration plus the increment for
+            // each previous incremental penalty of this team.
+            _ => {
+                c.params.competition.penalties[penalty].duration
+                    + c.params.competition.penalty_duration_increment
+                        * c.game.teams[self.side].penalty_counter
+            }
+        };
         c.game.teams[self.side][self.player].penalty_timer = match penalty {
             Penalty::MotionInSet => Timer::Started {
-                remaining: c.params.competition.penalties[penalty]
-                    .duration
+                remaining: c.game.teams[self.side][self.player]
+                    .penalty_duration
                     .try_into()
                     .unwrap(),
                 run_condition: RunCondition::ReadyOrPlaying,

@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use serde::{Deserialize, Serialize};
 
 use crate::action::{Action, ActionContext};
@@ -23,25 +25,28 @@ impl Action for Unpenalize {
                 c.game.teams[self.side][self.player].penalty_timer,
                 Timer::Started { .. }
             )
+            || c.game.teams[self.side][self.player]
+                .penalty_duration
+                .is_zero()
         {
             if self.force
                 || c.game.teams[self.side][self.player]
                     .penalty_timer
                     .get_remaining()
                     .is_zero()
+                || c.game.teams[self.side][self.player]
+                    .penalty_duration
+                    .is_zero()
             {
+                c.game.teams[self.side][self.player].penalty_duration = Duration::ZERO;
                 c.game.teams[self.side][self.player].penalty = Penalty::NoPenalty;
             }
             c.game.teams[self.side][self.player].penalty_timer = Timer::Stopped;
         } else {
             c.game.teams[self.side][self.player].penalty_timer = Timer::Started {
                 remaining: ({
-                    // The duration is composed of the base duration plus the increment for
-                    // each previous incremental penalty of this team.
-                    (c.params.competition.penalties[c.game.teams[self.side][self.player].penalty]
-                        .duration
-                        + c.params.competition.penalty_duration_increment
-                            * c.game.teams[self.side][self.player].penalty_increment)
+                    c.game.teams[self.side][self.player]
+                        .penalty_duration
                         .try_into()
                         .unwrap()
                 }),

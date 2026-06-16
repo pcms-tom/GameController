@@ -469,8 +469,8 @@ pub struct Player {
     pub penalty: Penalty,
     /// The timer which counts down until the penalty is over.
     pub penalty_timer: Timer,
-    /// The value of the team's penalty counter when the player was penalized.
-    pub penalty_increment: u32,
+    /// The full (original) duration of the current penalty.
+    pub penalty_duration: Duration,
     /// The number of cautions (yellow cards) of the player.
     pub cautions: u8,
 }

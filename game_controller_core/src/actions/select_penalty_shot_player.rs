@@ -1,4 +1,5 @@
 use std::mem::replace;
+use std::time::Duration;
 
 use serde::{Deserialize, Serialize};
 
@@ -31,7 +32,7 @@ impl Action for SelectPenaltyShotPlayer {
                     Player {
                         penalty: Penalty::Substitute,
                         penalty_timer: Timer::Stopped,
-                        penalty_increment: 0,
+                        penalty_duration: Duration::ZERO,
                         cautions: player.cautions,
                     },
                 )
@@ -40,7 +41,7 @@ impl Action for SelectPenaltyShotPlayer {
             .unwrap_or(Player {
                 penalty: Penalty::NoPenalty,
                 penalty_timer: Timer::Stopped,
-                penalty_increment: 0,
+                penalty_duration: Duration::ZERO,
                 cautions: 0, // TODO
             });
 

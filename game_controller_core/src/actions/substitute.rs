@@ -1,4 +1,4 @@
-use std::mem::replace;
+use std::{mem::replace, time::Duration};
 
 use serde::{Deserialize, Serialize};
 
@@ -40,11 +40,11 @@ impl Action for Substitute {
                 &mut c.game.teams[self.side][self.player_out].penalty_timer,
                 Timer::Stopped,
             );
-            c.game.teams[self.side][self.player_in].penalty_increment =
-                c.game.teams[self.side][self.player_out].penalty_increment;
+            c.game.teams[self.side][self.player_in].penalty_duration =
+                c.game.teams[self.side][self.player_out].penalty_duration;
         }
         c.game.teams[self.side][self.player_out].penalty = Penalty::Substitute;
-        c.game.teams[self.side][self.player_out].penalty_increment = 0;
+        c.game.teams[self.side][self.player_out].penalty_duration = Duration::ZERO;
         if c.game.teams[self.side].goalkeeper == Some(self.player_out) {
             c.game.teams[self.side].goalkeeper = Some(self.player_in);
         }
