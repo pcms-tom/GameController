@@ -72,7 +72,6 @@ The GameController communicates with robot players via three channels:
 - It sends control messages at a rate of 2 hertz (UDP broadcast on port 3838, format specified in the struct `RoboCupGameControlData` in `game_controller_msgs/headers/RoboCupGameControlData.h`).
     These control messages do not always represent the true game state, specifically after a transition to the `playing` state.
     After these events, they continue to maintain the state before the event for up to 10 seconds, or until another event happens that could not have happened in this "fake" state.
-    Note that this behavior differs from the old GameController, which would always keep the state attribute (and some others) at the old value for 15 seconds, even when other attributes already clearly indicated that it was the new state (e.g. players are unpenalized although their timers aren't at zero yet, or set plays starting during the "fake" `set` state when it is actually already `playing`).
     A control message is sent immediately and the rate is temporarily increased to 5 hertz when play is stopped.
 - It receives status messages from the robot players which must send them at a rate between 0.5 hertz and 2 hertz (UDP unicast on port 3939, format specified in the struct `RoboCupGameControlReturnData` in `game_controller_msgs/headers/RoboCupGameControlData.h`).
 - It receives team messages from the robot players (UDP broadcast on port 10000 + team number, up to 512 bytes of payload with arbitrary format).
@@ -134,7 +133,7 @@ The following settings are exposed via the launcher:
 - Broadcast: This checkbox selects if control messages are sent to the limited broadcast address (`255.255.255.255`) instead of the interface's broadcast address. Should only be used when it is required that those messages are sent on all interfaces.
 - Multicast: This checkbox selects whether team communication is also received from a certain multicast group. Should only be used for simulated games, *never* for real competition games.
 
-The launcher allows to start a game only if the two teams are distinct and their jersey colors don't conflict, i.e. all four colors must be pairwise distinct, except for the goalkeeper colors which may be the same for both teams.
+The launcher allows to start a game only if the two teams are distinct and their jersey colors don't conflict, i.e. the field player colors must be different from each other and from the opponent's goalkeeper color.
 Note that changing the sides or the kick-off team is not possible afterwards, so the switch to the main interface can only be done after the coin tosses.
 
 ### Main Interface
@@ -162,12 +161,21 @@ This will, however, not remove any effects on the team's penalty counter and the
 Some penalties are special:
 - The Motion in Set penalty can be applied to multiple players without selecting it, accommodating the case that multiple players respond at once to a wrong whistle.
     Furthermore, players are unpenalized automatically when the timer has elapsed, since they are never removed from the field.
+- When the Request for Pick-up penalty is applied during the Initial state or a Timeout, clicking the player again will unpenalize it immediately without starting a timer.
 
 #### Message Counting
 
 As per the rule book, team messages are counted (based on the port that they are sent on) during the Ready, Set, and Playing states (but not in penalty shoot-outs).
 When a team message arrives that is either too large or beyond the team's message budget, the score resets to 0 and future goals will not be counted.
 The score and the message counter change to a different color then.
+
+#### Stop Play
+
+The Stop Play button activates the stopped state and causes sending a control message immediately (cf. [Network Communication](#network-communication)).
+Currently there is no protection against hitting resume immediately after, i.e. double clicking resumes play immediately.
+The stop action can also be invoked by pressing the *Space* bar.
+However, play can only be resumed by pressing the button.
+The stop feature is orthogonal to the [undo history](#undo), i.e. the Stop/Resume Play actions do not appear in the history, and the stopped state is not affected by going back to a previous state.
 
 #### Timeouts
 
