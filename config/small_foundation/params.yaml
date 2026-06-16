@@ -36,7 +36,7 @@ penalties:
     duration:
       secs: 45
       nanos: 0
-    incremental: true
+    incremental: false
   ballHolding:
     duration:
       secs: 45
