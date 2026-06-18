@@ -96,7 +96,7 @@ export const listenForState = async (handler) => {
         setPlay: "noSetPlay",
         kickingSide: "home",
         primaryTimer: {
-          started: { remaining: [600, 0], run_condition: "playing", behavior_at_zero: "overflow" },
+          started: { remaining: [600, 0], runCondition: "playing", behaviorAtZero: "overflow" },
         },
         secondaryTimer: { stopped: null },
         timeoutRewindTimer: { stopped: null },
@@ -183,6 +183,9 @@ export const syncWithBackend = async () => {
     return await invoke("sync_with_backend");
   } else {
     return {
+      competition: {
+        extraHalfDuration: null,
+      },
       game: {
         teams: {
           home: {
