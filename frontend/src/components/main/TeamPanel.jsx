@@ -183,6 +183,9 @@ const TeamPanel = ({
     }
   };
 
+  const outerColumn = sign > 0 ? "col-start-1" : "col-start-3";
+  const innerColumn = sign > 0 ? "col-start-3" : "col-start-1";
+
   return (
     <div className="min-w-[290px] flex flex-col gap-2">
       <TeamHeader
@@ -191,7 +194,7 @@ const TeamPanel = ({
         name={teamNames[side]}
       />
       <div className="grid grid-flow-col grid-rows-4 auto-cols-fr gap-2">
-        <div className={`col-start-${2 - sign}`}>
+        <div className={outerColumn}>
           <ActionButton
             action={() => {
               setSubstitute(!substitute);
@@ -202,14 +205,14 @@ const TeamPanel = ({
             legal={true}
           />
         </div>
-        <div className={`col-start-${2 - sign}`}>
+        <div className={outerColumn}>
           <ActionButton
             action={{ type: "timeout", args: { side: side } }}
             label="Timeout"
             legal={legalTeamActions[actions.TIMEOUT]}
           />
         </div>
-        <div className={`col-start-${2 - sign}`}>
+        <div className={outerColumn}>
           <FreeKickButton
             game={game}
             legalTeamActions={legalTeamActions}
@@ -219,7 +222,7 @@ const TeamPanel = ({
             action={actions.DIRECT_FREE_KICK}
           />
         </div>
-        <div className={`col-start-${2 - sign}`}>
+        <div className={outerColumn}>
           <FreeKickButton
             game={game}
             legalTeamActions={legalTeamActions}
@@ -256,10 +259,10 @@ const TeamPanel = ({
             action={actions.GOAL_KICK}
           />
         </div>
-        <div className={`col-start-${2 + sign} row-span-2`}>
+        <div className={`${innerColumn} row-span-2`}>
           <TeamStats game={game} params={params} side={side} sign={sign} team={team} />
         </div>
-        <div className={`col-start-${2 + sign}`}>
+        <div className={innerColumn}>
           <FreeKickButton
             game={game}
             legalTeamActions={legalTeamActions}
@@ -269,7 +272,7 @@ const TeamPanel = ({
             action={actions.PENALTY_KICK}
           />
         </div>
-        <div className={`col-start-${2 + sign}`}>
+        <div className={innerColumn}>
           <FreeKickButton
             game={game}
             legalTeamActions={legalTeamActions}
