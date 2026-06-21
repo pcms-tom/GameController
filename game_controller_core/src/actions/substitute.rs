@@ -3,7 +3,7 @@ use std::{mem::replace, time::Duration};
 use serde::{Deserialize, Serialize};
 
 use crate::action::{Action, ActionContext};
-use crate::timer::{BehaviorAtZero, RunCondition, SignedDuration, Timer};
+use crate::timer::Timer;
 use crate::types::{Penalty, Phase, PlayerNumber, Side, State};
 
 /// This struct defines an action to substitute players.
@@ -20,39 +20,32 @@ pub struct Substitute {
 
 impl Action for Substitute {
     fn execute(&self, c: &mut ActionContext) {
-        if c.game.teams[self.side][self.player_out].penalty == Penalty::NoPenalty
-            && matches!(c.game.state, State::Ready | State::Set | State::Playing)
-        {
-            // Players that are substituted while not being penalized must still wait as if they
-            // were picked-up.
+        c.game.teams[self.side][self.player_in].penalty = replace(
+            &mut c.game.teams[self.side][self.player_out].penalty,
+            Penalty::Substitute,
+        );
+        // If the player substituted player wasn't penalized, it gets a picked up penalty.
+        if c.game.teams[self.side][self.player_in].penalty == Penalty::NoPenalty {
             c.game.teams[self.side][self.player_in].penalty = Penalty::PickedUp;
-            c.game.teams[self.side][self.player_in].penalty_timer = Timer::Started {
-                remaining: SignedDuration::ZERO,
-                run_condition: RunCondition::ReadyOrPlaying,
-                behavior_at_zero: BehaviorAtZero::Clip,
-            };
-            c.game.teams[self.side][self.player_out].penalty_timer = Timer::Stopped;
-        } else {
-            // Inherit the penalty and the timer.
-            c.game.teams[self.side][self.player_in].penalty =
-                c.game.teams[self.side][self.player_out].penalty;
-            c.game.teams[self.side][self.player_in].penalty_timer = replace(
-                &mut c.game.teams[self.side][self.player_out].penalty_timer,
-                Timer::Stopped,
-            );
-            c.game.teams[self.side][self.player_in].penalty_duration =
-                c.game.teams[self.side][self.player_out].penalty_duration;
         }
-        c.game.teams[self.side][self.player_out].penalty = Penalty::Substitute;
-        c.game.teams[self.side][self.player_out].penalty_duration = Duration::ZERO;
+        c.game.teams[self.side][self.player_in].penalty_duration = replace(
+            &mut c.game.teams[self.side][self.player_out].penalty_duration,
+            Duration::ZERO,
+        );
+        c.game.teams[self.side][self.player_in].penalty_timer = Timer::Stopped;
+        c.game.teams[self.side][self.player_out].penalty_timer = Timer::Stopped;
         if c.game.teams[self.side].goalkeeper == Some(self.player_out) {
             c.game.teams[self.side].goalkeeper = Some(self.player_in);
         }
     }
 
     fn is_legal(&self, c: &ActionContext) -> bool {
-        // TODO: only during stoppages in play, but leave it as is for German Open
         c.game.phase != Phase::PenaltyShootout
+            && (matches!(
+                c.game.state,
+                State::Initial | State::Set | State::Finished | State::Timeout
+            ) || (c.game.stopped
+                && c.game.teams[self.side][self.player_out].penalty != Penalty::NoPenalty))
             && self.player_in != self.player_out
             && c.game.teams[self.side][self.player_in].penalty == Penalty::Substitute
             && !matches!(

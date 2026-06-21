@@ -5,9 +5,9 @@ use bytes::Bytes;
 use game_controller_core::action::VAction;
 use game_controller_core::actions::{
     AddAdditionalTime, FinishHalf, FinishPenaltyShot, FinishSetPlay, FreePenaltyShot, FreeSetPlay,
-    GlobalGameStuck, Goal, Penalize, SelectPenaltyShotPlayer, StartExtraTime, StartPenaltyShootout,
-    StartSetPlay, StopPlay, Substitute, SwitchHalf, TeamMessage, Timeout, Undo, Unpenalize,
-    WaitForPenaltyShot, WaitForSetPlay,
+    GlobalGameStuck, Goal, Penalize, SelectGoalkeeper, SelectPenaltyShotPlayer, StartExtraTime,
+    StartPenaltyShootout, StartSetPlay, StopPlay, Substitute, SwitchHalf, TeamMessage, Timeout,
+    Undo, Unpenalize, WaitForPenaltyShot, WaitForSetPlay,
 };
 use game_controller_core::log::NullLogger;
 use game_controller_core::types::{
@@ -123,6 +123,14 @@ pub extern "C" fn gc_action_penalize(side: Side, player: u8, call: PenaltyCall) 
         side,
         player: PlayerNumber::new(player),
         call,
+    })))
+}
+
+#[no_mangle]
+pub extern "C" fn gc_action_select_goalkeeper(side: Side, player: u8) -> *mut VAction {
+    Box::into_raw(Box::new(VAction::SelectGoalkeeper(SelectGoalkeeper {
+        side,
+        player: PlayerNumber::new(player),
     })))
 }
 

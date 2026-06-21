@@ -199,9 +199,11 @@ The list of players will now change to the list of available substitutes (note t
 From this list, the player that shall replace the previously selected player is clicked.
 Depending on the game state, the new player gets a penalty or inherits the penalty of the substituted player.
 The goalkeeper property is transferred to the substitute, i.e. when the goalkeeper is substituted, the substitute is expected to wear a goalkeeper jersey and inherits the privileges of the goalkeeper.
-
 This feature must also be used before the start of a half in order to match the set of players in the GameController to the players that are actually on the field.
-If a team wants to play with a goalkeeper with a number from 2-7 (or 2-3, 2-4, 2-5, depending on the division), this must be done using three substitutions (e.g. if a team wants to play with players 1-7, but have the 3 be the goalkeeper, it must substitute 8 for 1, 1 for 3, 3 for 8).
+
+The goalkeeper can also be set by pressing the *Shift* key, which turns the "Substitute" button into a "Select" button.
+Afterwards, the player which should become goalkeeper can be selected (*Shift* can already be released).
+This is needed when, e.g. the goalkeeper has been sent off (because that player can't be substituted anymore), or before the start of a half, when the goalkeeper is not wearing the jersey number 1.
 
 #### Extra Time / Penalty Shoot-out
 

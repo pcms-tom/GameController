@@ -17,6 +17,13 @@ const textClasses = {
   gray: "text-gray-600",
 };
 
+const SELECT_STATE_DEFAULT = 0;
+const SELECT_STATE_GOALKEEPER = 1;
+const SELECT_STATE_PLAYER_OUT = 2;
+const SELECT_STATE_PLAYER_IN = 3;
+const SELECT_STATE_PSO_COLOR = 4;
+const SELECT_STATE_PSO_PLAYER = 5;
+
 const TeamHeader = ({ color, isKicking, name }) => {
   return (
     <div className="flex items-center justify-center gap-2">
@@ -92,47 +99,21 @@ const TeamPanel = ({
   sign,
   teamNames,
 }) => {
-  // This indicates whether we are currently in the process of substitution or player selection.
-  const [substitute, setSubstitute] = useState(false);
-  // This doubles as carrying the number of the player which is substituted (out) for normal
-  // substitutions, and a boolean indicating whether the penalty shoot-out player we are selecting
-  // is a field player (false) or a goalkeeper (true). If the substitute state is false, this
-  // should always be null.
-  const [substitutedPlayer, setSubstitutedPlayer] = useState(null);
+  const team = game.teams[side];
+  const teamConnectionStatus = connectionStatus[side];
+  const teamParams = params.game.teams[side];
 
-  // Thus, the allowed combinations of substituted/substitutedPlayer are:
-  // substitute === false && substitutedPlayer === null
-  //   -> no substitution / player selecting going on
-  // substitute === true && !penaltyShootout && substitutedPlayer === null
-  //   -> selecting the player going out
-  // substitute === true && !penaltyShootout && substitutedPlayer === 1..20
-  //   -> selecting the player coming in
-  // substitute === true && penaltyShootout && substitutedPlayer === null
-  //   -> selecting the player type (goalkeeper or field player)
-  // substitute === true && penaltyShootout && substitutedPlayer === false
-  //   -> selecting the player for this shot, wearing a field player jersey
-  // substitute === true && penaltyShootout && substitutedPlayer === true
-  //   -> selecting the player for this shot, wearing a goalkeeper jersey
-
-  // This is terrible code, I know.
-  const selectingPlayerIn = substitute && substitutedPlayer != null;
-  const selectingPlayerTypePSO =
-    substitute && game.phase === "penaltyShootout" && substitutedPlayer === null;
-  const selectingPlayerInPSO =
-    substitute && game.phase === "penaltyShootout" && substitutedPlayer != null;
-
-  // The operator can press the shift key to remove penalties early. The main logic is still in
-  // the backend, but it is decided here what the user *wants*.
-  const [forceUnpenalize, setForceUnpenalize] = useState(false);
+  // The operator can press the shift key to remove penalties early or select the goalkeeper.
+  const [alternative, setAlternative] = useState(false);
   useEffect(() => {
     const onKeydown = (e) => {
       if (e.key === "Shift") {
-        setForceUnpenalize(true);
+        setAlternative(true);
       }
     };
     const onKeyup = (e) => {
       if (e.key === "Shift") {
-        setForceUnpenalize(false);
+        setAlternative(false);
       }
     };
     document.addEventListener("keydown", onKeydown);
@@ -143,43 +124,60 @@ const TeamPanel = ({
     };
   });
 
-  const team = game.teams[side];
-  const teamConnectionStatus = connectionStatus[side];
-  const teamParams = params.game.teams[side];
+  // This indicates whether we are currently in the process of substitution or player selection.
+  // SELECT_STATE_PLAYER_IN has an additional attribute playerOut which contains the player to be
+  // removed, SELECT_STATE_PSO_PLAYER has an additional attribute for the jersey color the player
+  // is wearing (goalkeeper / field player).
+  const [selectState, setSelectState] = useState({ type: SELECT_STATE_DEFAULT });
   const handlePlayerClick = (player) => {
-    if (selectingPlayerInPSO) {
-      applyAction({
-        type: "selectPenaltyShotPlayer",
-        args: { side: side, player: player.number, goalkeeper: substitutedPlayer === true },
-      });
-      setSubstitute(false);
-      setSubstitutedPlayer(null);
-    } else if (selectingPlayerIn) {
-      applyAction({
-        type: "substitute",
-        args: { side: side, playerOut: substitutedPlayer, playerIn: player.number },
-      });
-      setSubstitute(false);
-      setSubstitutedPlayer(null);
-    } else if (substitute) {
-      setSubstitutedPlayer(player.number);
-    } else if (selectedPenaltyCall != null) {
-      applyAction({
-        type: "penalize",
-        args: {
-          side: side,
-          player: player.number,
-          call: actions.PENALTIES[selectedPenaltyCall][1],
-        },
-      });
-      if (actions.PENALTIES[selectedPenaltyCall][1] != "motionInSet") {
-        setSelectedPenaltyCall(null);
-      }
-    } else {
-      applyAction({
-        type: "unpenalize",
-        args: { side: side, player: player.number, force: forceUnpenalize },
-      });
+    switch (selectState.type) {
+      case SELECT_STATE_DEFAULT:
+        if (selectedPenaltyCall != null) {
+          applyAction({
+            type: "penalize",
+            args: {
+              side: side,
+              player: player.number,
+              call: actions.PENALTIES[selectedPenaltyCall][1],
+            },
+          });
+          if (actions.PENALTIES[selectedPenaltyCall][1] != "motionInSet") {
+            setSelectedPenaltyCall(null);
+          }
+        } else {
+          applyAction({
+            type: "unpenalize",
+            args: { side: side, player: player.number, force: alternative },
+          });
+        }
+        break;
+      case SELECT_STATE_GOALKEEPER:
+        applyAction({
+          type: "selectGoalkeeper",
+          args: { side: side, player: player.number },
+        });
+        setSelectState({ type: SELECT_STATE_DEFAULT });
+        break;
+      case SELECT_STATE_PLAYER_OUT:
+        setSelectState({ type: SELECT_STATE_PLAYER_IN, playerOut: player.number });
+        break;
+      case SELECT_STATE_PLAYER_IN:
+        applyAction({
+          type: "substitute",
+          args: { side: side, playerOut: selectState.playerOut, playerIn: player.number },
+        });
+        setSelectState({ type: SELECT_STATE_DEFAULT });
+        break;
+      case SELECT_STATE_PSO_COLOR:
+        // SELECT_STATE_PSO_COLOR doesn't end up here because it has its own handler.
+        break;
+      case SELECT_STATE_PSO_PLAYER:
+        applyAction({
+          type: "selectPenaltyShotPlayer",
+          args: { side: side, player: player.number, goalkeeper: selectState.goalkeeper },
+        });
+        setSelectState({ type: SELECT_STATE_DEFAULT });
+        break;
     }
   };
 
@@ -197,11 +195,22 @@ const TeamPanel = ({
         <div className={outerColumn}>
           <ActionButton
             action={() => {
-              setSubstitute(!substitute);
-              setSubstitutedPlayer(null);
+              setSelectState(
+                selectState.type != SELECT_STATE_DEFAULT
+                  ? { type: SELECT_STATE_DEFAULT }
+                  : game.phase === "penaltyShootout"
+                  ? teamParams.goalkeeperColor === teamParams.fieldPlayerColor
+                    // If the goalkeeper doesn't have a special jersey color, its selection can be
+                    // skipped.
+                    ? { type: SELECT_STATE_PSO_PLAYER, goalkeeper: game.kickingSide != side }
+                    : { type: SELECT_STATE_PSO_COLOR }
+                  : alternative
+                  ? { type: SELECT_STATE_GOALKEEPER }
+                  : { type: SELECT_STATE_PLAYER_OUT }
+              );
             }}
-            active={substitute}
-            label={game.phase === "penaltyShootout" ? "Select" : "Substitute"}
+            active={selectState.type != SELECT_STATE_DEFAULT}
+            label={game.phase === "penaltyShootout" || alternative || selectState.type === SELECT_STATE_GOALKEEPER ? "Select" : "Substitute"}
             legal={true}
           />
         </div>
@@ -284,14 +293,16 @@ const TeamPanel = ({
         </div>
       </div>
       <div className="grow flex flex-col gap-2 overflow-auto">
-        {selectingPlayerTypePSO
+        {selectState.type === SELECT_STATE_PSO_COLOR
           ? [true, false].map((isGoalkeeper) => (
               <PlayerButton
                 key={isGoalkeeper}
                 color={isGoalkeeper ? teamParams.goalkeeperColor : teamParams.fieldPlayerColor}
                 legal={true}
                 sign={sign}
-                onClick={() => setSubstitutedPlayer(isGoalkeeper)}
+                onClick={() =>
+                  setSelectState({ type: SELECT_STATE_PSO_PLAYER, goalkeeper: isGoalkeeper })
+                }
                 player={null}
               />
             ))
@@ -304,9 +315,9 @@ const TeamPanel = ({
                 };
               })
               .filter(
-                selectingPlayerInPSO
+                selectState.type === SELECT_STATE_PSO_PLAYER
                   ? () => true
-                  : selectingPlayerIn
+                  : selectState.type === SELECT_STATE_PLAYER_IN
                   ? (player) => player.penalty === "substitute"
                   : (player) => player.penalty != "substitute"
               )
@@ -315,22 +326,23 @@ const TeamPanel = ({
                   key={player.number}
                   color={
                     (
-                      selectingPlayerInPSO
-                        ? substitutedPlayer === true
-                        : (selectingPlayerIn ? substitutedPlayer : player.number) ===
-                          team.goalkeeper
+                      selectState.type === SELECT_STATE_PSO_PLAYER
+                        ? selectState.goalkeeper
+                        : (selectState.type === SELECT_STATE_PLAYER_IN
+                            ? selectState.playerOut
+                            : player.number) === team.goalkeeper
                     )
                       ? teamParams.goalkeeperColor
                       : teamParams.fieldPlayerColor
                   }
                   legal={
-                    substitute ||
+                    selectState.type != SELECT_STATE_DEFAULT ||
                     actions.isPenaltyCallLegalForPlayer(
                       legalPenaltyActions,
                       side,
                       player.number,
                       selectedPenaltyCall,
-                      forceUnpenalize
+                      alternative
                     )
                   }
                   sign={sign}

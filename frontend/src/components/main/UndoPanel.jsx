@@ -24,6 +24,7 @@ const getActionName = (action) => {
       }
       return "Penalize";
     }
+    case "selectGoalkeeper":
     case "selectPenaltyShotPlayer":
       return "Select";
     case "startExtraTime":
