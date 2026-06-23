@@ -4,8 +4,8 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: NUbots
   number: 1
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, white]
+  goalkeeperColors: [blue, white]
 - name: Bold Hearts
   number: 2
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -16,7 +16,7 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: Berlin United
   number: 4
-  fieldPlayerColors: [blue, purple]
+  fieldPlayerColors: [blue, purple, white]
   goalkeeperColors: [blue, purple, white]
 - name: B-Human
   number: 5
@@ -28,8 +28,8 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: Barelang FC
   number: 7
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [yellow, purple]
 - name: whIRLwind Amsterdam
   number: 8
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -44,12 +44,12 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: Rhoban
   number: 11
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [yellow, green]
+  goalkeeperColors: [yellow, green]
 - name: Ruhrbot Devils
   number: 12
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [yellow, black, white]
+  goalkeeperColors: [yellow, black, white]
 - name: Blenders FC
   number: 13
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -64,84 +64,84 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: Pumas
   number: 16
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [blue, red]
 - name: ZJUDancer
   number: 17
   fieldPlayerColors: [blue, purple]
   goalkeeperColors: [blue, purple]
 - name: rUNSWift
   number: 18
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [black, yellow]
+  goalkeeperColors: [black, yellow]
 - name: SPQR Team
   number: 19
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [red, black, blue]
+  goalkeeperColors: [red, black, blue]
 - name: GeoHBots
   number: 20
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [white, blue]
+  goalkeeperColors: [white, blue]
 - name: RO:BIT
   number: 21
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red, orange, yellow]
+  goalkeeperColors: [blue, red, orange, yellow]
 - name: HUST-HRT
   number: 22
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: I-Kid
   number: 23
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [orange, yellow, blue, red]
 - name: HULKs
   number: 24
   fieldPlayerColors: [blue, red, green]
   goalkeeperColors: [blue, red, green]
 - name: HERoEHS
   number: 25
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [yellow, blue, red]
 - name: ICHIRO ITS
   number: 26
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [blue, red]
 - name: Invic
   number: 27
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, white, yellow, orange, black]
+  goalkeeperColors: [blue, white, yellow, orange, black]
 - name: Team Sweaty
   number: 28
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [blue, red]
 - name: CAU Mountain&Sea
   number: 29
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [blue, red]
 - name: THMOS
   number: 30
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [red, blue]
+  goalkeeperColors: [red, blue]
 - name: Tsinghua Hephaestus
   number: 31
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [purple, red]
+  goalkeeperColors: [purple, red]
 - name: UT AustinVilla
   number: 32
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [orange, blue]
+  goalkeeperColors: [orange, blue]
 - name: NomadZ
   number: 33
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: ITAndroids
   number: 34
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [red, blue]
+  goalkeeperColors: [red, blue]
 - name: KHUBER
   number: 35
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [blue, red]
 - name: Mountain
   number: 36
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -156,24 +156,24 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: I-Teen
   number: 39
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [orange, yellow, blue, red]
 - name: Inha-United
   number: 40
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [red, blue]
+  goalkeeperColors: [yellow, red, blue]
 - name: RFC-Tsudanuma
   number: 41
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red, yellow]
+  goalkeeperColors: [blue, red, yellow]
 - name: RoboEireann
   number: 42
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [green, white, red]
+  goalkeeperColors: [green, white, red]
 - name: Bahia Robotics Team
   number: 43
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [white, blue, red]
 - name: Beihang RoboCup Team
   number: 44
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -184,12 +184,12 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: BigHeroX
   number: 46
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [red, green]
+  goalkeeperColors: [red, green]
 - name: DUT Future
   number: 47
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red, orange, yellow]
+  goalkeeperColors: [blue, red, orange, yellow]
 - name: Future Becoming
   number: 48
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -204,28 +204,28 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: RedbackBots
   number: 51
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [red, yellow, black, white]
+  goalkeeperColors: [red, yellow, black, white]
 - name: Badger Bots
   number: 52
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [red, black, white]
+  goalkeeperColors: [red, black, white]
 - name: KURA
   number: 53
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, white, red, black]
+  goalkeeperColors: [blue, white, red, black]
 - name: PCMS-HRG
   number: 54
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red]
+  goalkeeperColors: [orange, yellow, blue, red]
 - name: Robo-Erectus
   number: 55
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, red, white, purple]
+  goalkeeperColors: [blue, red, white, purple]
 - name: RobôCIn
   number: 56
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, white, yellow]
+  goalkeeperColors: [blue, white, yellow]
 - name: Robotedge
   number: 57
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -240,8 +240,8 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: Tech United
   number: 60
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [orange, blue]
+  goalkeeperColors: [orange, blue]
 - name: WarthogRobotics
   number: 61
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
@@ -252,12 +252,12 @@
   goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
 - name: WHU United
   number: 63
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, white]
+  goalkeeperColors: [yellow, orange, blue, white]
 - name: ZETIN
   number: 64
-  fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
-  goalkeeperColors: [blue, yellow, black, white, green, orange, purple, brown, gray, red]
+  fieldPlayerColors: [blue, white]
+  goalkeeperColors: [yellow, blue, white]
 - name: B-Team
   number: 70
   fieldPlayerColors: [red, blue, yellow, black, white, green, orange, purple, brown, gray]
