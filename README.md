@@ -93,8 +93,24 @@ The exceptions are that control messages can be configured to be sent to the lim
 
 ### Start
 
-The binary distributions on the [GitHub releases page](https://github.com/RoboCup-HumanoidSoccerLeague/GameController/releases) come with scripts that can be executed in a platform-typical way.
+The binary distributions on the [GitHub releases page](https://github.com/pcms-tom/GameController/releases) come with scripts that can be executed in a platform-typical way.
 On macOS, you may want to call `xattr -c <path to GameController.app>` before the first run to clear the quarantine flag.
+
+On Linux, the release archive expects Tauri/WebKitGTK runtime libraries to be installed by the system.
+If `./game_controller` exits with `error while loading shared libraries`, run:
+
+```bash
+ldd target/release/game_controller_app | grep "not found"
+```
+
+On Ubuntu/Debian, the commonly required runtime packages can be installed with:
+
+```bash
+sudo apt update
+sudo apt install -y libwebkit2gtk-4.1-0 libayatana-appindicator3-1 librsvg2-2 libxdo3 libgtk-3-0
+```
+
+If the error mentions `GLIBC_2.xx not found`, use a newer Linux distribution such as Ubuntu 22.04 or 24.04.
 
 If the GameController should be run from the source code, the most convenient way to do it is by executing
 
